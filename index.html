@@ -21,7 +21,8 @@
 
             reader.onload = function (e) {
                 const contents = e.target.result;
-                fileContent.textContent = contents;
+                // 使用innerText或者innerHTML属性将内容显示在页面上
+                fileContent.innerText = contents; // 或者 fileContent.innerHTML = contents;
             };
 
             reader.readAsText(file);
