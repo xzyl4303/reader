@@ -7,28 +7,47 @@
     <title>TXT电子书阅读器</title>
     <style>
         body {
-            font-family: 'Microsoft YaHei', SimSun, Arial, sans-serif;
+            font-family: Arial, sans-serif;
         }
 
         #fileContent {
             white-space: pre-wrap;
-            overflow-x: hidden;
         }
     </style>
 </head>
 
 <body>
+    <label for="fontFamily">选择字体:</label>
+    <select id="fontFamily">
+        <option value="Arial">Arial</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Microsoft YaHei">微软雅黑</option>
+        <option value=SimSun"">宋体</option>
+        <option value="KaiTi"楷体></option>
+        <!-- 可以添加更多的字体选项 -->
+    </select>
+
+    <label for="backgroundColor">选择背景颜色:</label>
+    <input type="color" id="backgroundColor">
+
+    <label for="textColor">选择文本颜色:</label>
+    <input type="color" id="textColor">
+
+    <br>
+
     <input type="file" id="txtFileInput" accept=".txt">
     <pre id="fileContent"></pre>
 
     <script>
         const fileInput = document.getElementById('txtFileInput');
         const fileContent = document.getElementById('fileContent');
-        let currentFile = null;
+        const fontFamilySelect = document.getElementById('fontFamily');
+        const backgroundColorInput = document.getElementById('backgroundColor');
+        const textColorInput = document.getElementById('textColor');
 
         fileInput.addEventListener('change', function (event) {
             const file = event.target.files[0];
-            currentFile = file;
             const reader = new FileReader();
 
             reader.onload = function (e) {
@@ -39,16 +58,16 @@
             reader.readAsText(file);
         });
 
-        document.addEventListener('keydown', function (event) {
-            if (currentFile) {
-                if (event.keyCode === 37) { // 左箭头键
-                    // 在这里处理向左翻页的逻辑
-                    console.log('向左翻页');
-                } else if (event.keyCode === 39) { // 右箭头键
-                    // 在这里处理向右翻页的逻辑
-                    console.log('向右翻页');
-                }
-            }
+        fontFamilySelect.addEventListener('change', function () {
+            fileContent.style.fontFamily = fontFamilySelect.value;
+        });
+
+        backgroundColorInput.addEventListener('input', function () {
+            fileContent.style.backgroundColor = backgroundColorInput.value;
+        });
+
+        textColorInput.addEventListener('input', function () {
+            fileContent.style.color = textColorInput.value;
         });
     </script>
 </body>
