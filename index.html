@@ -8,31 +8,54 @@
 </head>
 <body>
     <h1>EPUB Reader</h1>
+
+    <label for="fileInput">选择EPUB文件：</label>
     <input type="file" id="fileInput" accept=".epub">
+    <br>
+    <label for="urlInput">或者输入EPUB文件URL：</label>
+    <input type="text" id="urlInput">
+    <button onclick="openEpubUrl()">打开</button>
+
     <div id="viewer"></div>
 
     <script>
         document.getElementById('fileInput').addEventListener('change', function(e) {
             var file = e.target.files[0];
-            var reader = new FileReader();
+            openEpub(file);
+        });
 
+        function openEpubUrl() {
+            var url = document.getElementById('urlInput').value;
+            fetch(url)
+                .then(response => response.arrayBuffer())
+                .then(data => {
+                    var book = ePub(data);
+                    renderBook(book);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        function openEpub(file) {
+            var reader = new FileReader();
             reader.onload = function(event){
                 var epubContent = event.target.result;
                 var book = ePub(epubContent);
-
-                book.renderTo("viewer");
-
-                book.ready.then(function(){
-                    console.log("EPUB加载完成！");
-                });
-
-                book.loaded.metadata.then(function(meta) {
-                    console.log(meta);
-                });
+                renderBook(book);
             };
-
             reader.readAsArrayBuffer(file);
-        });
+        }
+
+        function renderBook(book) {
+            book.renderTo("viewer");
+            book.ready.then(function(){
+                console.log("EPUB加载完成！");
+            });
+            book.loaded.metadata.then(function(meta) {
+                console.log(meta);
+            });
+        }
     </script>
 </body>
 </html>
