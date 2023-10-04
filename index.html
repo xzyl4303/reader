@@ -12,6 +12,7 @@
 
         #fileContent {
             font-size: 16px;
+            white-space: pre-wrap;
         }
 
         .button-container {
@@ -26,7 +27,7 @@
     <div class="button-container">
         <label for="fontFamily">选择字体:</label>
         <select id="fontFamily">
-                <option value="Microsoft YaHei, sans-serif" style="font-family: 'Microsoft YaHei'">微软雅黑</option>
+        <option value="Microsoft YaHei, sans-serif" style="font-family: 'Microsoft YaHei'">微软雅黑</option>
         <option value="SimSun, sans-serif" style="font-family: 'SimSun'">宋体</option>
         <option value="SimHei, sans-serif" style="font-family: 'SimHei'">黑体</option>
         <option value="KaiTi, sans-serif" style="font-family: 'KaiTi'">楷体</option>
@@ -92,7 +93,36 @@
         <label for="backgroundColor">选择背景颜色:</label>
         <input type="color" id="backgroundColor">
 
+        <input type="file" id="txtFileInput" accept=".txt">
+        <button id="searchButton">🔍 搜索</button>
+        <input type="text" id="searchText" placeholder="输入要搜索的关键词">
+
+        <label for="nightMode">夜间模式:</label>
+        <input type="checkbox" id="nightMode">
+
+        <label for="autoScrollSpeed">滚屏速度:</label>
+        <input type="range" id="autoScrollSpeed" min="1" max="10" value="5">
+        <span id="scrollSpeedLabel">5</span>
+    </div>
+
+    <pre id="fileContent"></pre>
+
+    <script>
+        const fileContent = document.getElementById('fileContent');
+        const fontFamilySelect = document.getElementById('fontFamily');
+        const textColorInput = document.getElementById('textColor');
+        const backgroundColorInput = document.getElementById('backgroundColor');
+        const increaseFontSizeButton = document.getElementById('increaseFontSize');
+        const decreaseFontSizeButton = document.getElementById('decreaseFontSize');
+        const fileInput = document.getElementById('txtFileInput');
+        const searchTextInput = document.getElementById('searchText');
+        const searchButton = document.getElementById('searchButton');
+        const nightModeCheckbox = document.getElementById('nightMode');
+        const autoScrollSpeedInput = document.getElementById('autoScrollSpeed');
+        const scrollSpeedLabel = document.getElementById('scrollSpeedLabel');
+
         let currentFontSize = 16; // 初始字体大小为16px
+        let autoScrollInterval;
 
         increaseFontSizeButton.addEventListener('click', function () {
             currentFontSize += 2; // 增加2px
@@ -144,6 +174,32 @@
             const highlightedContent = content.replace(regex, match => `<mark>${match}</mark>`);
             fileContent.innerHTML = highlightedContent;
         });
+
+        nightModeCheckbox.addEventListener('change', function () {
+            if (nightModeCheckbox.checked) {
+                // 启用夜间模式
+                fileContent.style.color = '#ffffff'; // 文本颜色为白色
+                fileContent.style.backgroundColor = '#000000'; // 背景颜色为黑色
+            } else {
+                // 禁用夜间模式
+                fileContent.style.color = textColorInput.value; // 恢复文本颜色
+                fileContent.style.backgroundColor = backgroundColorInput.value; // 恢复背景颜色
+            }
+        });
+
+        autoScrollSpeedInput.addEventListener('input', function () {
+            const speed = autoScrollSpeedInput.value;
+            scrollSpeedLabel.textContent = speed;
+            clearInterval(autoScrollInterval);
+
+            if (speed > 0) {
+                autoScrollInterval = setInterval(scrollFileContent, 1000 / speed);
+            }
+        });
+
+        function scrollFileContent() {
+            fileContent.scrollTop += 1; // 每次滚动1像素
+        }
     </script>
 </body>
 
