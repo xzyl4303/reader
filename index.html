@@ -92,24 +92,6 @@
         <label for="backgroundColor">选择背景颜色:</label>
         <input type="color" id="backgroundColor">
 
-        <input type="file" id="txtFileInput" accept=".txt">
-        <button id="searchButton">🔍 搜索</button>
-        <input type="text" id="searchText" placeholder="输入要搜索的关键词">
-    </div>
-
-    <pre id="fileContent"></pre>
-
-    <script>
-        const fileContent = document.getElementById('fileContent');
-        const fontFamilySelect = document.getElementById('fontFamily');
-        const textColorInput = document.getElementById('textColor');
-        const backgroundColorInput = document.getElementById('backgroundColor');
-        const increaseFontSizeButton = document.getElementById('increaseFontSize');
-        const decreaseFontSizeButton = document.getElementById('decreaseFontSize');
-        const fileInput = document.getElementById('txtFileInput');
-        const searchTextInput = document.getElementById('searchText');
-        const searchButton = document.getElementById('searchButton');
-
         let currentFontSize = 16; // 初始字体大小为16px
 
         increaseFontSizeButton.addEventListener('click', function () {
