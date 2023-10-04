@@ -13,12 +13,19 @@
         #fileContent {
             font-size: 16px;
         }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
 <body>
-    <label for="fontFamily">选择字体:</label>
-    <select id="fontFamily">
+    <div class="button-container">
+        <label for="fontFamily">选择字体:</label>
+        <select id="fontFamily">
         <option value="Microsoft YaHei, sans-serif">微软雅黑</option>
         <option value="SimSun, sans-serif">宋体</option>
         <option value="SimHei, sans-serif">黑体</option>
@@ -34,15 +41,71 @@
         <option value="Impact, sans-serif">Impact</option>
         <option value="Comic Sans MS, sans-serif">Comic Sans MS</option>
         <option value="Palatino Linotype, sans-serif">Palatino Linotype</option>
-    </select>
+        <option value="SimSun, sans-serif">宋体</option>
+        <option value="SimHei, sans-serif">黑体</option>
+        <option value="KaiTi, sans-serif">楷体</option>
+<option value="FangSong, sans-serif">仿宋</option>
+<option value="Arial, sans-serif">Arial</option>
+<option value="Helvetica, sans-serif">Helvetica</option>
+<option value="Times New Roman, sans-serif">Times New Roman</option>
+<option value="Georgia, sans-serif">Georgia</option>
+<option value="Courier New, monospace">Courier New</option>
+<option value="Verdana, sans-serif">Verdana</option>
+<option value="Trebuchet MS, sans-serif">Trebuchet MS</option>
+<option value="Impact, sans-serif">Impact</option>
+<option value="Comic Sans MS, sans-serif">Comic Sans MS</option>
+<option value="Palatino Linotype, sans-serif">Palatino Linotype</option>
+<option value="华文细黑, sans-serif">华文细黑</option>
+<option value="华文黑体, sans-serif">华文黑体</option>
+<option value="华文楷体, sans-serif">华文楷体</option>
+<option value="华文宋体, sans-serif">华文宋体</option>
+<option value="方正兰亭黑, sans-serif">方正兰亭黑</option>
+<option value="方正舒体, sans-serif">方正舒体</option>
+<option value="方正姚体, sans-serif">方正姚体</option>
+<option value="文泉驿微米黑, sans-serif">文泉驿微米黑</option>
+<option value="文泉驿正黑, sans-serif">文泉驿正黑</option>
+<option value="文泉驿点阵正黑, sans-serif">文泉驿点阵正黑</option>
+<option value="苹方, sans-serif">苹方</option>
+<option value="华康翩翩体, sans-serif">华康翩翩体</option>
+<option value="华康翩翩体(P), sans-serif">华康翩翩体(P)</option>
+<option value="康熙字典体, sans-serif">康熙字典体</option>
+<option value="汉仪旗黑-65S, sans-serif">汉仪旗黑-65S</option>
+<option value="汉仪墨君体, sans-serif">汉仪墨君体</option>
+<option value="站酷快乐体, sans-serif">站酷快乐体</option>
+<option value="站酷高端黑, sans-serif">站酷高端黑</option>
+<option value="萝卜体, sans-serif">萝卜体</option>
+<option value="贝壳体, sans-serif">贝壳体</option>
+<option value="Century Gothic, sans-serif">Century Gothic</option>
+<option value="Garamond, sans-serif">Garamond</option>
+<option value="Perpetua, sans-serif">Perpetua</option>
+<option value="Cambria, sans-serif">Cambria</option>
+<option value="Didot, sans-serif">Didot</option>
+<option value="Bodoni MT, sans-serif">Bodoni MT</option>
+<option value="Constantia, sans-serif">Constantia</option>
+<option value="Franklin Gothic Medium, sans-serif">Franklin Gothic Medium</option>
+<option value="Lucida Sans Unicode, sans-serif">Lucida Sans Unicode</option>
+<option value="Bookman Old Style, sans-serif">Bookman Old Style</option>
+<option value="Bell MT, sans-serif">Bell MT</option>
+<option value="Corbel, sans-serif">Corbel</option>
+<option value="Ebrima, sans-serif">Ebrima</option>
+<option value="Leelawadee UI, sans-serif">Leelawadee UI</option>
+<option value="Verdana Pro, sans-serif">Verdana Pro</option>
+<option value="Myriad Pro, sans-serif">Myriad Pro</option>
+<option value="Calisto MT, sans-serif">Calisto MT</option>
+<option value="Tw Cen MT, sans-serif">Tw Cen MT</option>
+<option value="Rockwell, sans-serif">Rockwell</option>
+<option value="Palatino, sans-serif">Palatino</option>
+        </select>
 
-    <button id="increaseFontSize">+</button>
-    <button id="decreaseFontSize">-</button>
+        <button id="increaseFontSize">+</button>
+        <button id="decreaseFontSize">-</button>
 
-    <br>
+        <label for="textColor">选择文本颜色:</label>
+        <input type="color" id="textColor">
 
-    <label for="backgroundColor">选择背景颜色:</label>
-    <input type="color" id="backgroundColor">
+        <label for="backgroundColor">选择背景颜色:</label>
+        <input type="color" id="backgroundColor">
+    </div>
 
     <input type="file" id="txtFileInput" accept=".txt">
     <pre id="fileContent"></pre>
@@ -50,6 +113,7 @@
     <script>
         const fileContent = document.getElementById('fileContent');
         const fontFamilySelect = document.getElementById('fontFamily');
+        const textColorInput = document.getElementById('textColor');
         const backgroundColorInput = document.getElementById('backgroundColor');
         const increaseFontSizeButton = document.getElementById('increaseFontSize');
         const decreaseFontSizeButton = document.getElementById('decreaseFontSize');
@@ -74,6 +138,10 @@
             fileContent.style.fontFamily = fontFamilySelect.value;
         });
 
+        textColorInput.addEventListener('input', function () {
+            fileContent.style.color = textColorInput.value;
+        });
+
         backgroundColorInput.addEventListener('input', function () {
             fileContent.style.backgroundColor = backgroundColorInput.value;
         });
@@ -93,3 +161,4 @@
 </body>
 
 </html>
+
