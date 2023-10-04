@@ -11,7 +11,7 @@
         }
 
         #fileContent {
-            white-space: pre-wrap;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -34,26 +34,49 @@
         <option value="Impact, sans-serif">Impact</option>
         <option value="Comic Sans MS, sans-serif">Comic Sans MS</option>
         <option value="Palatino Linotype, sans-serif">Palatino Linotype</option>
-        <!-- 可以添加更多的字体选项 -->
     </select>
+
+    <button id="increaseFontSize">+</button>
+    <button id="decreaseFontSize">-</button>
+
+    <br>
 
     <label for="backgroundColor">选择背景颜色:</label>
     <input type="color" id="backgroundColor">
-
-    <label for="textColor">选择文本颜色:</label>
-    <input type="color" id="textColor">
-
-    <br>
 
     <input type="file" id="txtFileInput" accept=".txt">
     <pre id="fileContent"></pre>
 
     <script>
-        const fileInput = document.getElementById('txtFileInput');
         const fileContent = document.getElementById('fileContent');
         const fontFamilySelect = document.getElementById('fontFamily');
         const backgroundColorInput = document.getElementById('backgroundColor');
-        const textColorInput = document.getElementById('textColor');
+        const increaseFontSizeButton = document.getElementById('increaseFontSize');
+        const decreaseFontSizeButton = document.getElementById('decreaseFontSize');
+        const fileInput = document.getElementById('txtFileInput');
+
+        let currentFontSize = 16; // 初始字体大小为16px
+
+        increaseFontSizeButton.addEventListener('click', function () {
+            currentFontSize += 2; // 增加2px
+            fileContent.style.fontSize = currentFontSize + 'px';
+        });
+
+        decreaseFontSizeButton.addEventListener('click', function () {
+            currentFontSize -= 2; // 减小2px
+            if (currentFontSize < 2) {
+                currentFontSize = 2; // 字体大小不小于2px
+            }
+            fileContent.style.fontSize = currentFontSize + 'px';
+        });
+
+        fontFamilySelect.addEventListener('change', function () {
+            fileContent.style.fontFamily = fontFamilySelect.value;
+        });
+
+        backgroundColorInput.addEventListener('input', function () {
+            fileContent.style.backgroundColor = backgroundColorInput.value;
+        });
 
         fileInput.addEventListener('change', function (event) {
             const file = event.target.files[0];
@@ -65,18 +88,6 @@
             };
 
             reader.readAsText(file);
-        });
-
-        fontFamilySelect.addEventListener('change', function () {
-            fileContent.style.fontFamily = fontFamilySelect.value;
-        });
-
-        backgroundColorInput.addEventListener('input', function () {
-            fileContent.style.backgroundColor = backgroundColorInput.value;
-        });
-
-        textColorInput.addEventListener('input', function () {
-            fileContent.style.color = textColorInput.value;
         });
     </script>
 </body>
