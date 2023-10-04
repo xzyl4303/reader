@@ -81,7 +81,6 @@
         <option value="Tw Cen MT, sans-serif" style="font-family: 'Tw Cen MT'">Tw Cen MT</option>
         <option value="Rockwell, sans-serif" style="font-family: 'Rockwell'">Rockwell</option>
         <option value="Palatino, sans-serif" style="font-family: 'Palatino'">Palatino</option>
-    </select>
         </select>
 
         <button id="increaseFontSize">+</button>
@@ -93,13 +92,11 @@
         <label for="backgroundColor">选择背景颜色:</label>
         <input type="color" id="backgroundColor">
 
-         <input type="file" id="txtFileInput" accept=".txt">
-    <button id="searchButton">🔍 搜索</button>
-    <input type="text" id="searchText" placeholder="输入要搜索的关键词">
-
+        <input type="file" id="txtFileInput" accept=".txt">
+        <button id="searchButton">🔍 搜索</button>
+        <input type="text" id="searchText" placeholder="输入要搜索的关键词">
     </div>
 
-    <input type="file" id="txtFileInput" accept=".txt">
     <pre id="fileContent"></pre>
 
     <script>
@@ -110,6 +107,8 @@
         const increaseFontSizeButton = document.getElementById('increaseFontSize');
         const decreaseFontSizeButton = document.getElementById('decreaseFontSize');
         const fileInput = document.getElementById('txtFileInput');
+        const searchTextInput = document.getElementById('searchText');
+        const searchButton = document.getElementById('searchButton');
 
         let currentFontSize = 16; // 初始字体大小为16px
 
@@ -149,8 +148,21 @@
 
             reader.readAsText(file);
         });
+
+        searchButton.addEventListener('click', function () {
+            const searchText = searchTextInput.value;
+            if (searchText.trim() === '') {
+                // 如果搜索关键词为空，则取消高亮显示
+                fileContent.innerHTML = fileContent.textContent;
+                return;
+            }
+
+            const content = fileContent.textContent;
+            const regex = new RegExp(searchText, 'gi');
+            const highlightedContent = content.replace(regex, match => `<mark>${match}</mark>`);
+            fileContent.innerHTML = highlightedContent;
+        });
     </script>
 </body>
 
 </html>
-
