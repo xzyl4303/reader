@@ -27,7 +27,7 @@
     <div class="button-container">
         <label for="fontFamily">选择字体:</label>
         <select id="fontFamily">
-        <option value="Microsoft YaHei, sans-serif" style="font-family: 'Microsoft YaHei'">微软雅黑</option>
+               <option value="Microsoft YaHei, sans-serif" style="font-family: 'Microsoft YaHei'">微软雅黑</option>
         <option value="SimSun, sans-serif" style="font-family: 'SimSun'">宋体</option>
         <option value="SimHei, sans-serif" style="font-family: 'SimHei'">黑体</option>
         <option value="KaiTi, sans-serif" style="font-family: 'KaiTi'">楷体</option>
@@ -167,6 +167,24 @@
         function scrollFileContent() {
             fileContent.scrollTop += 1; // 每次滚动1像素
         }
+
+        // 文件上传功能代码
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = '.txt';
+        fileInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const contents = e.target.result;
+                fileContent.innerText = contents;
+            };
+
+            reader.readAsText(file);
+        });
+
+        document.body.appendChild(fileInput);
     </script>
 </body>
 
