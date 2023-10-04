@@ -93,10 +93,6 @@
         <label for="backgroundColor">选择背景颜色:</label>
         <input type="color" id="backgroundColor">
 
-        <input type="file" id="txtFileInput" accept=".txt">
-        <button id="searchButton">🔍 搜索</button>
-        <input type="text" id="searchText" placeholder="输入要搜索的关键词">
-
         <label for="nightMode">夜间模式:</label>
         <input type="checkbox" id="nightMode">
 
@@ -114,9 +110,6 @@
         const backgroundColorInput = document.getElementById('backgroundColor');
         const increaseFontSizeButton = document.getElementById('increaseFontSize');
         const decreaseFontSizeButton = document.getElementById('decreaseFontSize');
-        const fileInput = document.getElementById('txtFileInput');
-        const searchTextInput = document.getElementById('searchText');
-        const searchButton = document.getElementById('searchButton');
         const nightModeCheckbox = document.getElementById('nightMode');
         const autoScrollSpeedInput = document.getElementById('autoScrollSpeed');
         const scrollSpeedLabel = document.getElementById('scrollSpeedLabel');
@@ -147,32 +140,6 @@
 
         backgroundColorInput.addEventListener('input', function () {
             fileContent.style.backgroundColor = backgroundColorInput.value;
-        });
-
-        fileInput.addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                const contents = e.target.result;
-                fileContent.innerText = contents;
-            };
-
-            reader.readAsText(file);
-        });
-
-        searchButton.addEventListener('click', function () {
-            const searchText = searchTextInput.value;
-            if (searchText.trim() === '') {
-                // 如果搜索关键词为空，则取消高亮显示
-                fileContent.innerHTML = fileContent.textContent;
-                return;
-            }
-
-            const content = fileContent.textContent;
-            const regex = new RegExp(searchText, 'gi');
-            const highlightedContent = content.replace(regex, match => `<mark>${match}</mark>`);
-            fileContent.innerHTML = highlightedContent;
         });
 
         nightModeCheckbox.addEventListener('change', function () {
